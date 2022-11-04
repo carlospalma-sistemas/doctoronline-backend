@@ -8,7 +8,7 @@ EspecialidadOperaciones.crearEspecialidad = async(req, res) => {
         const especialidadGuardada = await especialidad.save();
         res.status(201).send(especialidadGuardada);
     } catch (error) {
-        res.status(400).send("Mala petición. "+error);
+        if(error.code === 11000) res.status(400).json({tipoError: "dato duplicado", dato: error.keyValue});
     }
 }
 
